@@ -27,6 +27,7 @@ pipeline {
        stage ('push to ECR') {
            steps {
                sh 'docker push $DOCKER_IMAGE'
+  }
  }
 }
     post {
@@ -39,4 +40,4 @@ pipeline {
    }
   }      
  }
-}              
+              
