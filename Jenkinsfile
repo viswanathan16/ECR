@@ -10,14 +10,16 @@ pipeline {
    stages {
        stage ('Login to ECR') {
            steps { 
-               withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-jenkins-creds']]) {
+               withCredentials([usernamePassword(credentialsId: 'aws-credentials', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY' )]) {
                   sh '''
+                      export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+                      export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
                       aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
                      '''
   }
  }  
 }
-     stage ('BUILD') {
+       stage ('BUILD') {
            steps {
                sh ' docker build -t $DOCKER_IMAGE .'
  }
@@ -28,7 +30,7 @@ pipeline {
  }
 }
 
-   post {
+       post {
            failure {
                emailext(
                     to: 'lunajavis05@gmail.com',
