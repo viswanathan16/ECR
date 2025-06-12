@@ -29,12 +29,12 @@ pipeline {
                sh 'docker push $DOCKER_IMAGE'
  }
 }
-       post {
-          failure {
-              emailext (
-                  to: 'lunajavis05@gmail.com',
-                  subject: "Pipeline failed : ${env.JOB_NAME}",
-                  body: "Please Check the Pipeline ASAP: ${env.BUILD_URL}"
+    post {
+       failure {
+           emailext (
+               to: 'lunajavis05@gmail.com',
+               subject: "Pipeline failed : ${env.JOB_NAME}",
+               body: "Please Check the Pipeline ASAP: ${env.BUILD_URL}"
     )
    }
   }      
