@@ -12,8 +12,7 @@ pipeline {
            steps { 
                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-jenkins-creds']]) {
                   sh '''
-                      aws ecr get-login-password --region $AWS_REGION | \ 
-                      docker login --username AWS --password-stdin $ECR_REGISTRY
+                      aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
                      '''
   }
  }  
