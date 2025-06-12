@@ -30,14 +30,6 @@ pipeline {
  }
 }
 
-       post {
-           failure {
-               emailext(
-                    to: 'lunajavis05@gmail.com',
-                    subject: "Pipeline Failed: ${env.JOB_NAME}:${env.BUILD_NUMBER}",
-                    body: "Please check the Pipeline ASAP ${env.BUILD_URL}"
-   ) 
-  }
- }  
-}
+        
+ }
 }              
