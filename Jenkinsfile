@@ -33,8 +33,9 @@ pipeline {
            steps {
                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
               sh '''
+                 export KUBECONFIG=$KUBECONFIG
                  envsubst < deployment.yml > deployment_resolved.yml 
-                 kubectl  apply -f  deployment.yml
+                 kubectl  apply -f  deployment_resolved.yml
                  kubectl apply -f service.yml
                  kubectl get pods
                 '''
