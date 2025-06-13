@@ -29,6 +29,18 @@ pipeline {
                sh 'docker push $DOCKER_IMAGE'
   }
  }
+       stage ('Deploy to minikube') {
+           steps {
+               withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+              sh '''
+                 envsubst < deployment.yml > deployment_resolved.yml 
+                 kubectl  apply -f  deployment.yml
+                 kubectl apply -f service.yml
+                 kubectl get pods
+                '''
+   }
+  }
+ }
 }
     post {
        failure {
