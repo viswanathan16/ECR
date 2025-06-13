@@ -20,6 +20,6 @@ spec:
         image: 058264079741.dkr.ecr.us-east-1.amazonaws.com/gfg-ecr:${env.BUILD_ID}
         ports:
         - containerPort: 3000
-    imagePullSecrets: 
-    -  name: regcred
+      imagePullSecrets: 
+        -  name: regcred
 
